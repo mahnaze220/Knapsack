@@ -1,8 +1,8 @@
-package com.mobiquityinc.request;
+package com.knapsack.request;
 
 import java.util.List;
 
-import com.mobiquityinc.domain.Package;
+import com.knapsack.domain.Package;
 
 /**
  * This class contains request of packaging. Each request has a input text file name.

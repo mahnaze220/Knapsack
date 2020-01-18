@@ -1,12 +1,13 @@
-package com.mobiquityinc.packer.handler;
+package com.knapsack.packer.handler;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mobiquityinc.domain.Item;
-import com.mobiquityinc.domain.Package;
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.request.PackagingRequest;
+import com.knapsack.domain.Item;
+import com.knapsack.domain.Package;
+import com.knapsack.exception.APIException;
+import com.knapsack.request.PackagingRequest;
 
 /**
  * This class is one of the handlers in the defined chain of responsibility pattern.
@@ -19,7 +20,7 @@ import com.mobiquityinc.request.PackagingRequest;
 
 public class PackageProcessor extends PackageHandler {
 
-	public static final Double WEIGHT_LIMIT = 100d; 
+	public static final BigDecimal WEIGHT_LIMIT = new BigDecimal(100); 
 	public static final Integer ITEMS_COUNT_LIMIT = 15;
 	public static final String COMMA = ",";
 
@@ -119,7 +120,8 @@ public class PackageProcessor extends PackageHandler {
 					costMatrix[i][j] = costMatrix[i-1][j];
 				else
 					costMatrix[i][j] = Math.max(costMatrix[i-1][j], 
-							costMatrix[i-1][(j - items.get(i-1).getIntegerValueOfWeight())] + items.get(i-1).getCost());
+							costMatrix[i-1][(j - items.get(i-1).getIntegerValueOfWeight())] 
+									+ items.get(i-1).getCost().intValue());
 			}
 		}
 
@@ -132,7 +134,7 @@ public class PackageProcessor extends PackageHandler {
 				selectedItems.add(items.get(i-1));
 
 				// remove items value and weight
-				result -= items.get(i-1).getCost();
+				result -= items.get(i-1).getCost().intValue();
 				w -= items.get(i-1).getIntegerValueOfWeight();
 			}
 		}

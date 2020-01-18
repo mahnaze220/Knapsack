@@ -1,17 +1,15 @@
-package com.mobiquityinc.packer;
+package com.knapsack.packer;
 
-import static org.junit.Assert.assertArrayEquals;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.packer.handler.PackageReader;
-import com.mobiquityinc.request.PackagingRequest;
+import com.knapsack.exception.APIException;
+import com.knapsack.packer.handler.PackageReader;
+import com.knapsack.request.PackagingRequest;
 
 /**
  * This unit test contains test cases for PackageReader's scenarios.
@@ -20,30 +18,30 @@ import com.mobiquityinc.request.PackagingRequest;
  */
 public class PackageReaderUT {
 
-	@Rule
-	public ExpectedException expectedEx = ExpectedException.none();
-
 	@Test
 	public void handleRequest_successScenario() throws APIException {
-		String inputFileName = "D:\\workspace\\MobEu-Hiring-Java\\src\\test\\resources\\test-packages.txt";
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("test-packages.txt").getFile());
+		String inputFileName = file.getAbsolutePath();
 		List<String> expectedInputData = createExpectedInputData();
 		PackageReader readerHandler = new PackageReader();
 		PackagingRequest request = new PackagingRequest();
 		request.setInputFileName(inputFileName);
 		readerHandler.handleRequest(request); 
-		assertArrayEquals(expectedInputData.toArray(), request.getInputData().toArray());
+		Assertions.assertArrayEquals(expectedInputData.toArray(), request.getInputData().toArray());
 	}
 
 	@Test
 	public void handleRequest_invalidFileFormat_throwException() throws APIException {
-		expectedEx.expect(APIException.class);
-		expectedEx.expectMessage("Input file's format is not valid");
-
-		String inputFileName = "D:\\workspace\\MobEu-Hiring-Java\\src\\test\\resources\\invalid-packages.txt";
-		PackageReader readerHandler = new PackageReader();
-		PackagingRequest request = new PackagingRequest();
-		request.setInputFileName(inputFileName);
-		readerHandler.handleRequest(request);
+		Assertions.assertThrows(APIException.class, () -> {
+			ClassLoader classLoader = getClass().getClassLoader();
+			File file = new File(classLoader.getResource("invalid-packages.txt").getFile());
+			String inputFileName = file.getAbsolutePath();
+			PackageReader readerHandler = new PackageReader();
+			PackagingRequest request = new PackagingRequest();
+			request.setInputFileName(inputFileName);
+			readerHandler.handleRequest(request);
+		}, "Input file's format is not valid");
 	}
 
 	public List<String> createExpectedInputData() {

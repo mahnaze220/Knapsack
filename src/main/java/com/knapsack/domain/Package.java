@@ -1,4 +1,4 @@
-package com.mobiquityinc.domain;
+package com.knapsack.domain;
 
 import java.util.List;
 

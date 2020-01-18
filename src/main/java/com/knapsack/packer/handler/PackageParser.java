@@ -1,14 +1,15 @@
-package com.mobiquityinc.packer.handler;
+package com.knapsack.packer.handler;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.mobiquityinc.domain.Item;
-import com.mobiquityinc.domain.Package;
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.request.PackagingRequest;
+import com.knapsack.domain.Item;
+import com.knapsack.domain.Package;
+import com.knapsack.exception.APIException;
+import com.knapsack.request.PackagingRequest;
 
 /**
  * This class is one of the handlers in the defined chain of responsibility pattern.
@@ -89,8 +90,8 @@ public class PackageParser extends PackageHandler {
 				}
 
 				//create item object by extracted data
-				Item p = new Item(Integer.valueOf(items[0]), Double.valueOf(items[1]), 
-						Integer.valueOf(items[2]));
+				Item p = new Item(Integer.valueOf(items[0]), new BigDecimal(items[1]), 
+						new BigDecimal(items[2]));
 				availableItems.add(p);
 			}
 			if(availableItems.isEmpty()) {

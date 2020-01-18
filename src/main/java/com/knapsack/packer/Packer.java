@@ -1,11 +1,11 @@
-package com.mobiquityinc.packer;
+package com.knapsack.packer;
 
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.packer.handler.PackageHandler;
-import com.mobiquityinc.packer.handler.PackageParser;
-import com.mobiquityinc.packer.handler.PackageProcessor;
-import com.mobiquityinc.packer.handler.PackageReader;
-import com.mobiquityinc.request.PackagingRequest;
+import com.knapsack.exception.APIException;
+import com.knapsack.packer.handler.PackageHandler;
+import com.knapsack.packer.handler.PackageParser;
+import com.knapsack.packer.handler.PackageProcessor;
+import com.knapsack.packer.handler.PackageReader;
+import com.knapsack.request.PackagingRequest;
 
 public class Packer {
 

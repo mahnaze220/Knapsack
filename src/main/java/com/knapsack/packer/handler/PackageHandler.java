@@ -1,7 +1,7 @@
-package com.mobiquityinc.packer.handler;
+package com.knapsack.packer.handler;
 
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.request.PackagingRequest;
+import com.knapsack.exception.APIException;
+import com.knapsack.request.PackagingRequest;
 
 /**
  * This abstract class implements "Chain of responsibility" design pattern.

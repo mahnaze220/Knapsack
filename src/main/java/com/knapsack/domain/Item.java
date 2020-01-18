@@ -1,4 +1,9 @@
-package com.mobiquityinc.domain;
+package com.knapsack.domain;
+
+import java.math.BigDecimal;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * An item (thing) can be added into a package. Each item has index number, weight and cost.
@@ -8,8 +13,8 @@ package com.mobiquityinc.domain;
 
 public class Item {
 
-	public static final Integer MAX_COST = 100;
-	public static final Double MAX_WEIGHT = 100d;
+	public static final BigDecimal MAX_COST = new BigDecimal(100);
+	public static final BigDecimal MAX_WEIGHT = new BigDecimal(100);
 
 	/*
 	 * Item's index number
@@ -19,12 +24,12 @@ public class Item {
 	/*
 	 * Item's weight
 	 */
-	private Double weight;
+	private BigDecimal weight;
 
 	/*
 	 * Item's cost
 	 */
-	private Integer cost;
+	private BigDecimal cost;
 
 	/**
 	 * Creates an item instance by it's index number, weight and cost
@@ -32,7 +37,7 @@ public class Item {
 	 * @param weight
 	 * @param cost
 	 */
-	public Item(Integer index, Double weight, Integer cost) {
+	public Item(Integer index, BigDecimal weight, BigDecimal cost) {
 		super();
 		this.index = index;
 		this.weight = weight;
@@ -51,7 +56,7 @@ public class Item {
 	 * Returns weight of item
 	 * @return Double
 	 */
-	public Double getWeight() {
+	public BigDecimal getWeight() {
 		return weight;
 	}
 
@@ -59,7 +64,7 @@ public class Item {
 	 * Returns cost of item
 	 * @return BigDecimal
 	 */
-	public Integer getCost() {
+	public BigDecimal getCost() {
 		return cost;
 	}
 
@@ -68,15 +73,15 @@ public class Item {
 	 * @return boolean
 	 */
 	public boolean isValid() {
-		return getCost() <= MAX_COST && getWeight() <= MAX_WEIGHT;
+		return getCost().compareTo(MAX_COST) < 0 && getWeight().compareTo(MAX_WEIGHT) < 0;
 	}
-	
+
 	/**
 	 * Converts double value of weight to integer
 	 * @return
 	 */
 	public Integer getIntegerValueOfWeight() {
-		return (int)(weight * 100);
+		return weight.multiply(new BigDecimal(100)).intValue();
 	}
 
 	@Override
@@ -86,39 +91,26 @@ public class Item {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
-		result = prime * result + ((index == null) ? 0 : index.hashCode());
-		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
-		return result;
+		final int PRIME = 31;
+		return new HashCodeBuilder(getIndex() %2 == 0 ? getIndex() + 1 : getIndex(), PRIME).toHashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Item other = (Item) obj;
-		if (cost == null) {
-			if (other.cost != null)
-				return false;
-		} else if (cost.compareTo(other.cost) < 0)
-			return false;
-		if (index == null) {
-			if (other.index != null)
-				return false;
-		} else if (!index.equals(other.index))
-			return false;
-		if (weight == null) {
-			if (other.weight != null)
-				return false;
-		} else if (!weight.equals(other.weight))
-			return false;
-		return true;
+		return new EqualsBuilder()
+				.append(getIndex(), other.getIndex())
+				.append(getWeight(), other.getWeight())
+				.append(getCost(), other.getCost())
+				.isEquals();
 	}
-
 }

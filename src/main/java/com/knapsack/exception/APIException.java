@@ -1,4 +1,4 @@
-package com.mobiquityinc.exception;
+package com.knapsack.exception;
 
 public class APIException extends Exception {
 

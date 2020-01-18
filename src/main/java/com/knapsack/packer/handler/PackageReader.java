@@ -1,4 +1,4 @@
-package com.mobiquityinc.packer.handler;
+package com.knapsack.packer.handler;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.request.PackagingRequest;
+import com.knapsack.exception.APIException;
+import com.knapsack.request.PackagingRequest;
 
 /**
  * This class is one of the handlers in the defined chain of responsibility pattern.
