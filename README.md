@@ -1,4 +1,4 @@
-# packaging-challenge
+# Knapsack
 The goal of this challenge is to determine which items to put into a package so that the total weight is less than or equal to the package limit and the total cost is as large as possible. 
 The chain of responsibility design pattern is used to handle packaging requests by three handlers such as reader handler, parser handler and processor handler. 
 Reader handler: to read an input file
